@@ -6,6 +6,7 @@ import com.azulcrm.utilities.BrowserUtils;
 import com.azulcrm.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -47,6 +48,20 @@ public class PollCreationStepDefinition {
     @Then("the user clicks send button")
     public void theUserClicksSendButton() {
         pollCreationPage.pollSendButton.click ();
+        BrowserUtils.sleep (3);
+    }
+
+    @And("the user creates a poll by adding {string} and {string} and {string}")
+    public void theUserCreatesAPollByAddingAndAnd(String question, String answer1, String answer2) {
+        pollCreationPage.questionBox.sendKeys (question);
+        pollCreationPage.answerBox1.sendKeys (answer1);
+        pollCreationPage.answerBox2.sendKeys (answer2);
+    }
+
+    @Then("the user sees {string} message on dashboard header")
+    public void theUserSeesMessageOnDashboardHeader(String expectedHeader) {
+        String actualHeader = pollCreationPage.messageTitleHeader.getText ();
+        Assert.assertEquals (expectedHeader,actualHeader);
     }
 }
 

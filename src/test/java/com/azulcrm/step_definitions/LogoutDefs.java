@@ -11,9 +11,8 @@ public class LogoutDefs {
     @When("the user clicks on profile link")
     public void the_user_clicks_on_profile_link() {
         dashboardPage.profileMenu.click();
-        BrowserUtils.sleep(2);
-
     }
+
     @When("the user clicks on logout link")
     public void the_user_clicks_on_logout_link() {
         dashboardPage.logOutLink.click();
@@ -23,7 +22,6 @@ public class LogoutDefs {
     public void the_user_see_autorization_page() {
         String expectedTitle = "Authorization";
         BrowserUtils.verifyTitleContains(expectedTitle);
-
     }
 
 }

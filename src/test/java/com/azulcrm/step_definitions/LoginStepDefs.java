@@ -17,8 +17,6 @@ public class LoginStepDefs {
 
         homePage.logInLink.click();
 
-        BrowserUtils.waitFor(2);
-
         if (userType.equalsIgnoreCase("hr")) {
             loginPage.login(ConfigurationReader.getProperty("hr_username"), ConfigurationReader.getProperty("hr_password"));
         } else if (userType.equalsIgnoreCase("helpdesk")) {

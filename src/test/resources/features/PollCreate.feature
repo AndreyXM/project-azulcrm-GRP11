@@ -7,7 +7,7 @@ Feature: Poll Creation
     Given the user logged in as "<userType>"
     When  the user clicks on poll button
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
-    And   the user should be able to select Allow multiple choice checkbox
+    And   the user selects Allow multiple choice checkbox
     Then  the user clicks send button
 
     Examples:
@@ -23,7 +23,7 @@ Feature: Poll Creation
     Given the user logged in as "<userType>"
     When  the user clicks on poll button
     And   the user creates a poll by adding "<Question>" and "<Answer1>" and "<Answer2>"
-    And   the user should be able to select Allow multiple choice checkbox
+    And   the user selects Allow multiple choice checkbox
     And   the user clicks send button
     Then  the user sees "The message title is not specified" message on dashboard header
 

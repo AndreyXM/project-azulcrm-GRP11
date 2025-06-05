@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class PollCreationStepDefinition {
 
     PollCreationPage pollCreationPage = new PollCreationPage ();
@@ -38,8 +40,8 @@ public class PollCreationStepDefinition {
     }
 
 
-    @And("the user should be able to select Allow multiple choice checkbox")
-    public void theUserShouldBeAbleToSelectAllowMultipleChoiceCheckbox() {
+    @And("the user selects Allow multiple choice checkbox")
+    public void theUserSelectsAllowMultipleChoiceCheckbox() {
         pollCreationPage.multipleChoiceBox.click ();
         BrowserUtils.sleep (1);
 

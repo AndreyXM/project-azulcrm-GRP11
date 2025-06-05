@@ -14,25 +14,18 @@ public class ProfilePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy (id = "user-block")
+    @FindBy(id = "user-block")
     public WebElement userMenu;
 
-    //div[@class='menu-popup-items']//span[.='My Profile']
-    //(//span[@class='menu-popup-item-text'])[1]
-    //div[@class='menu-popup-items']//span[@class='menu-popup-item-text'])[1]
-    //(//a[@class='menu-popup-item menu-popup-no-icon '])[1]
-    //span[normalize-space()='My Profile']
-    //div[@id='menu-popup-user-menu']//span[.='My Profile']
-
-    @FindBy (xpath = "//span[normalize-space()='My Profile']")
+    @FindBy(xpath = "//span[normalize-space()='My Profile']")
     public WebElement myProfileItem;
 
-    @FindBy (xpath = "//a[.='General']")
+    @FindBy(xpath = "//a[.='General']")
     public WebElement generalItem;
 
-    @FindBy (xpath = "//div[@class='profile-menu-items']//a")
+    @FindBy(xpath = "//div[@class='profile-menu-items']//a")
     public List<WebElement> profileMenuItems;
 
-    @FindBy (xpath = "//td[@class='user-profile-nowrap-second']/a")
+    @FindBy(xpath = "//td[@class='user-profile-nowrap-second']/a")
     public WebElement confirmationEmail;
 }

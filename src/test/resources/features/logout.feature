@@ -1,7 +1,6 @@
 @logout
 Feature: Users should be able to logout
 
-  @wip
   Scenario Outline: Verify user logout
     Given the user logged in as "<userType>"
     When the user clicks on profile link

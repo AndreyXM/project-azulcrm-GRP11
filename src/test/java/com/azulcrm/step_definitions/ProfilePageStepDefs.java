@@ -8,15 +8,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-
 import java.util.List;
 
 public class ProfilePageStepDefs {
 
 //TODO : Then the user sees the "<userType>" email under the general tab ->create separate scenario!
-
-    LoginPage loginPage = new LoginPage();
-    ProfilePage profilePage = new ProfilePage();
+ProfilePage profilePage = new ProfilePage();
 
     @When("the user clicks on My Profile option under the User Menu")
     public void user_clicks_on_my_profile_option_under_the_user_menu() {
@@ -54,4 +51,5 @@ public class ProfilePageStepDefs {
             Assert.assertEquals(ConfigurationReader.getProperty("marketing_username"), profilePage.confirmationEmail.getText());
         }
     }
+
 }

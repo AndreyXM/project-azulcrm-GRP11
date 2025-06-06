@@ -1,9 +1,10 @@
 Feature: Poll Creation
 
 
+
   @Poll
   Scenario Outline: Poll creation as user
-    # Given the user logged in as hr
+
     Given the user logged in as "<userType>"
     When  the user clicks on poll button
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"

@@ -22,27 +22,30 @@ public class PollCreationStepDefinition {
     }
 
     @Then("the user creates a poll by adding {string}, {string} and {string} and {string}")
-    public void theUserCreatesAPollByAddingAndAnd(String messageTitleTest, String question, String answer1, String answer2) {
+    public void theUserCreatesAPollByAddingAndAnd(String messageTitleTest1, String questionTest1, String answer1Test1, String answer2Test1) {
 
         WebElement iframe = Driver.getDriver ().findElement (By.className ("bx-editor-iframe"));
         //Switch to the frame
         Driver.getDriver ().switchTo ().frame (iframe);
 
-        pollCreationPage.messageTitleBox.sendKeys (messageTitleTest);
+        pollCreationPage.messageTitleBox.sendKeys (messageTitleTest1);
         Driver.getDriver ().switchTo ().defaultContent ();
         //Driver.getDriver ().switchTo ().frame (0);
 
-        pollCreationPage.questionBox.sendKeys (question);
-        pollCreationPage.answerBox1.sendKeys (answer1);
-        pollCreationPage.answerBox2.sendKeys (answer2);
+        pollCreationPage.questionBox.sendKeys (questionTest1);
+        pollCreationPage.answerBox1.sendKeys (answer1Test1);
+        pollCreationPage.answerBox2.sendKeys (answer2Test1);
         BrowserUtils.sleep (1);
     }
-
 
     @And("the user selects Allow multiple choice checkbox")
     public void theUserSelectsAllowMultipleChoiceCheckbox() {
         pollCreationPage.multipleChoiceBox.click ();
         BrowserUtils.sleep (1);
+        boolean isChecked = pollCreationPage.multipleChoiceBox.isSelected ();
+        Assert.assertTrue ("CheckBox is not checked", isChecked);
+
+        //System.out.println ("pollCreationPage.multipleChoiceBox.isSelected () = " + pollCreationPage.multipleChoiceBox.isSelected ());
 
     }
 
@@ -53,9 +56,9 @@ public class PollCreationStepDefinition {
     }
 
     @And("the user creates a poll by adding {string} and {string} and {string}")
-    public void theUserCreatesAPollByAddingAndAnd(String question1Test1, String answer1Test1, String answer2Test2) {
-        pollCreationPage.questionBox.sendKeys (question1Test1);
-        pollCreationPage.answerBox1.sendKeys (answer1Test1);
+    public void theUserCreatesAPollByAddingAndAnd(String question1Test2, String answer1Test2, String answer2Test2) {
+        pollCreationPage.questionBox.sendKeys (question1Test2);
+        pollCreationPage.answerBox1.sendKeys (answer1Test2);
         pollCreationPage.answerBox2.sendKeys (answer2Test2);
     }
 
@@ -87,10 +90,10 @@ public class PollCreationStepDefinition {
     }
 
     @And("the user enters {string} and {string} and {string}")
-    public void theUserEntersAndAnd(String question1Test2, String answer1Test2, String answer2Test2) {
-        pollCreationPage.questionBox.sendKeys (question1Test2);
-        pollCreationPage.answerBox1.sendKeys (answer1Test2);
-        pollCreationPage.answerBox2.sendKeys (answer2Test2);
+    public void theUserEntersAndAnd(String question1Test3, String answer1Test3, String answer2Test3) {
+        pollCreationPage.questionBox.sendKeys (question1Test3);
+        pollCreationPage.answerBox1.sendKeys (answer1Test3);
+        pollCreationPage.answerBox2.sendKeys (answer2Test3);
     }
 }
 

@@ -78,4 +78,15 @@ public class AddLinkInMessageStepDefs {
                 actualURL.contains(linkURL));
 
     }
+    //Step Definition for the Error Message:
+    @Then("the system should display an error message about duplicate content")
+    public void the_system_should_display_error_message() {
+        BrowserUtils.waitForVisibility(activityStreamPage.duplicateMessageError, 5);
+        Assert.assertTrue(activityStreamPage.duplicateMessageError.isDisplayed());
+    }
+
+    @When("fills in the Link text field with exact text {string}")
+    public void fills_in_the_link_text_field_with_exact_text(String linkText) {
+        activityStreamPage.linkTextInput.sendKeys(linkText);
+    }
 }

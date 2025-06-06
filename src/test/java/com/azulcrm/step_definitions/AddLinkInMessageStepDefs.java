@@ -2,8 +2,12 @@ package com.azulcrm.step_definitions;
 
 import com.azulcrm.pages.ActivityStreamPage;
 import com.azulcrm.utilities.BrowserUtils;
+import com.azulcrm.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+
+import java.util.Set;
 
 public class AddLinkInMessageStepDefs {
 
@@ -44,8 +48,33 @@ public class AddLinkInMessageStepDefs {
         activityStreamPage.messageLink.click();
     }
 
+
     @Then("the user should be redirected to {string}")
-    public void the_user_should_be_redirected_to(String string) {
+    public void the_user_should_be_redirected_to(String linkURL) {
+        String originalWindow = Driver.getDriver().getWindowHandle();
+        Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
+        String newWindowHandle = null;
+        for (String eachWindowHandle : allWindowHandles) {
+            if (!eachWindowHandle.equals(originalWindow)) {
+                newWindowHandle = eachWindowHandle;
+                break;
+            }
+        }
+        if (newWindowHandle == null) {
+            throw new RuntimeException("New window/tab was not opened.");
+        }
+        Driver.getDriver().switchTo().window(newWindowHandle);
+        BrowserUtils.waitForPageToLoad(10);
+
+        String actualURL = Driver.getDriver().getCurrentUrl();
+        System.out.println("Redirected to: " + actualURL);
+
+        assert actualURL != null;
+        Assert.assertTrue("The redirection URL is incorrect!",
+                actualURL.contains(linkURL));
+
+//        Driver.getDriver().close();
+//        Driver.getDriver().switchTo().window(originalWindow);
 
     }
 }

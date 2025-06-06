@@ -1,12 +1,10 @@
 package com.azulcrm.step_definitions;
-
 import com.azulcrm.pages.LoginPage;
 import com.azulcrm.pages.ProfilePage;
 import com.azulcrm.utilities.BrowserUtils;
 import com.azulcrm.utilities.ConfigurationReader;
 import com.azulcrm.utilities.Driver;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -41,7 +39,6 @@ public class ProfilePageStepDefs {
 
     @When("the user views the following options on My Profile page")
     public void user_views_the_following_options_on_my_profile_page(List<String> expectedOptions) {
-        // Write code here that turns the phrase above into concrete actions
         BrowserUtils.waitFor(10);
         List<String> actualOptions = BrowserUtils.getElementsText(profilePage.profileMenuItems);
         Assert.assertEquals(expectedOptions, actualOptions);

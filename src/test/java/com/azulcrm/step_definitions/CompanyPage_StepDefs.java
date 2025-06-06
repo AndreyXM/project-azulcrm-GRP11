@@ -38,9 +38,14 @@ public class CompanyPage_StepDefs {
     }
 
 
-    @Then("user enters username {string} and password {string}")
-    public void userEntersUsernameAndPassword(String username, String password) {
-        loginPage = new LoginPage();
-        loginPage.login(username,password);
+    @Then("user logged in as a {string}")
+    public void userLoggedInAsA(String userType) {
+        if (userType.equalsIgnoreCase("hr")) {
+            loginPage.login(ConfigurationReader.getProperty("hr_username"), ConfigurationReader.getProperty("hr_password"));
+        } else if (userType.equalsIgnoreCase("helpdesk")) {
+            loginPage.login(ConfigurationReader.getProperty("helpdesk_username"), ConfigurationReader.getProperty("helpdesk_password"));
+        } else if (userType.equalsIgnoreCase("marketing")) {
+            loginPage.login(ConfigurationReader.getProperty("marketing_username"), ConfigurationReader.getProperty("marketing_password"));
+        }
     }
 }

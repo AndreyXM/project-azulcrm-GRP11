@@ -7,6 +7,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 public class AddLinkInMessageStepDefs {
@@ -30,7 +32,9 @@ public class AddLinkInMessageStepDefs {
 
     @When("fills in the Link text field with {string}")
     public void fills_in_the_text_field_with(String linkText) {
-        activityStreamPage.linkTextInput.sendKeys(linkText);
+        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String finalText = timeStamp + " - " + linkText;
+        activityStreamPage.linkTextInput.sendKeys(finalText);
     }
 
     @When("fills in the Link URL field with {string}")
@@ -72,9 +76,6 @@ public class AddLinkInMessageStepDefs {
         assert actualURL != null;
         Assert.assertTrue("The redirection URL is incorrect!",
                 actualURL.contains(linkURL));
-
-//        Driver.getDriver().close();
-//        Driver.getDriver().switchTo().window(originalWindow);
 
     }
 }

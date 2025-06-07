@@ -39,9 +39,6 @@ public class DashboardPage {
     @FindBy(xpath = "//td[@class='files-del-btn']/span")
     public WebElement RemoveFileFromMsg;
 
-    @FindBy(xpath = "//body[@contenteditable='true']")
-    public WebElement messageTitleBox;
-
     @FindBy(css = "span.main-buttons-item-text-title")
     private List<WebElement> moduleNames;
 

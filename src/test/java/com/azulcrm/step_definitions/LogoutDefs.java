@@ -18,8 +18,8 @@ public class LogoutDefs {
         dashboardPage.logOutLink.click();
     }
 
-    @Then("the user see autorization page")
-    public void the_user_see_autorization_page() {
+    @Then("the user see authorization page")
+    public void the_user_see_authorization_page() {
         String expectedTitle = "Authorization";
         BrowserUtils.verifyTitleContains(expectedTitle);
     }

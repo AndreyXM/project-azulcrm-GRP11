@@ -1,11 +1,10 @@
+@allPolls
 Feature: Poll Creation
-
-
-
   @Poll
   Scenario Outline: Poll creation as user
 
-    Given the user logged in as "<userType>"
+    Given the user is on the login page
+    When the user logged in as "<userType>"
     When  the user clicks on poll button
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
@@ -21,7 +20,8 @@ Feature: Poll Creation
   @MessageTitleVerification
   Scenario Outline: Message Title verification
 
-    Given the user logged in as "<userType>"
+    Given the user is on the login page
+    When the user logged in as "<userType>"
     When  the user clicks on poll button
     And   the user creates a poll by adding "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
@@ -38,7 +38,8 @@ Feature: Poll Creation
   @Recipient
   Scenario Outline: Recipient verification
 
-    Given the user logged in as "<userType>"
+    Given the user is on the login page
+    When the user logged in as "<userType>"
     When  the user clicks on poll button
     And   the user types "<MessageTitle>" on Message Title section
     And   the user enters valid "<EmployeeName>" in the recipient box

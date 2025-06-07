@@ -5,7 +5,7 @@ Feature: Users should be able to logout
     Given the user logged in as "<userType>"
     When the user clicks on profile link
     And the user clicks on logout link
-    Then the user see autorization page
+    Then the user see authorization page
 
     Examples:
       | userType  |

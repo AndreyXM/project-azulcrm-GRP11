@@ -125,6 +125,16 @@ public class PollCreationStepDefinition {
         String actualHeader = pollCreationPage.questionTitleHeader.getText ();
         Assert.assertEquals (expectedHeader, actualHeader);
     }
+
+    @And("the user creates a poll by adding {string}, valid {string} box, empty {string} and empty {string}")
+    public void theUserCreatesAPollByAddingValidBoxEmptyAndEmpty(String messageTitle, String question, String answer1, String answer2) {
+    createPollWithMessageTitle (messageTitle, question, answer1, answer2);
+    }
+
+    @Then("the user sees {string}<Question>{string} answer error message on dashboard header")
+    public void theUserSeesQuestionAnswerErrorMessageOnDashboardHeader(String str1, String str2) {
+
+    }
 }
 
 

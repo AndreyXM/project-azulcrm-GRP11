@@ -71,3 +71,21 @@ Feature: Poll Creation
       | hr        | Title check1 |          | Test Hr Answer 1        | Test Hr Answer 2        |
       | helpdesk  | Title check2 |          | Test HelpDesk Answer 1  | Test HelpDeskAnswer 2   |
       | marketing | Title check3 |          | Test Marketing Answer 1 | Test Marketing Answer 2 |
+
+  @QuestionTextTest
+  Scenario Outline: Recipient verification
+
+    Given the user is on the login page
+    When  the user logged in as "<userType>"
+    When  the user clicks on poll button
+    And   the user creates a poll by adding "<MessageTitle>", valid "<Question>" box, empty "<Answer1>" and empty "<Answer2>"
+    And   the user selects Allow multiple choice checkbox
+    And   the user clicks send button
+    Then  the user sees "The question "<Question>" has no answers." answer error message on dashboard header
+
+    Examples:
+
+      | userType  | MessageTitle | Question                 | Answer1 | Answer2 |
+      | hr        | Title check1 | Test Hr Question?        |         |         |
+      | helpdesk  | Title check2 | Test HelpDesk Question?  |         |         |
+      | marketing | Title check3 | Test Marketing Question? |         |         |

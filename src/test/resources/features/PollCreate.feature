@@ -42,20 +42,20 @@ Feature: Poll Creation
     Given the user is on the login page
     When  the user logged in as "<userType>"
     When  the user clicks on poll button
-    And   the user enters valid "<EmployeeName>" in the recipient box
+    And   the user enters valid "<Employee>" in the recipient box
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     Then  the user clicks send button
 
     Examples:
 
-      | userType  | MessageTitle | EmployeeName | Question                 | Answer1                 | Answer2                 |
-      | hr        | Title check1 | Nadir        | Test Hr Question?        | Test Hr Answer 1        | Test Hr Answer 2        |
-      | helpdesk  | Title check2 | Asiya        | Test HelpDesk Question?  | Test HelpDesk Answer 1  | Test HelpDeskAnswer 2   |
-      | marketing | Title check3 | Employee     | Test Marketing Question? | Test Marketing Answer 1 | Test Marketing Answer 2 |
+      | userType  | MessageTitle | Employee | Question                 | Answer1                 | Answer2                 |
+      | hr        | Title check1 | Nadir    | Test Hr Question?        | Test Hr Answer 1        | Test Hr Answer 2        |
+      | helpdesk  | Title check2 | Asiya    | Test HelpDesk Question?  | Test HelpDesk Answer 1  | Test HelpDeskAnswer 2   |
+      | marketing | Title check3 | Employee | Test Marketing Question? | Test Marketing Answer 1 | Test Marketing Answer 2 |
 
   @QuestionTextTest
-  Scenario Outline: Recipient verification
+  Scenario Outline: Question text error message verification
 
     Given the user is on the login page
     When  the user logged in as "<userType>"
@@ -72,8 +72,8 @@ Feature: Poll Creation
       | helpdesk  | Title check2 |          | Test HelpDesk Answer 1  | Test HelpDeskAnswer 2   |
       | marketing | Title check3 |          | Test Marketing Answer 1 | Test Marketing Answer 2 |
 
-  @QuestionTextTest
-  Scenario Outline: Recipient verification
+  @AnswerTextTest
+  Scenario Outline: Answer text error verification
 
     Given the user is on the login page
     When  the user logged in as "<userType>"

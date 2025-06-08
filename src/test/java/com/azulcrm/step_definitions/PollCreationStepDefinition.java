@@ -28,7 +28,7 @@ public class PollCreationStepDefinition {
 
     @Then("the user creates a poll by adding {string}, {string} and {string} and {string}")
     public void theUserCreatesAPollByAddingAndAnd(String messageTitleTest1, String questionTest1, String answer1Test1, String answer2Test1) {
-        createPollWithMessageTitle (messageTitleTest1, questionTest1, answer1Test1, answer2Test1);
+        createPollMessage (messageTitleTest1, questionTest1, answer1Test1, answer2Test1);
     }
 
     @And("the user selects Allow multiple choice checkbox")
@@ -48,7 +48,7 @@ public class PollCreationStepDefinition {
 
     @And("the user creates a poll by adding empty {string} and {string} and {string} and {string}")
     public void theUserCreatesAPollByAddingEmptyAndAndAnd(String emptyMessageTitle, String question, String answer1, String answer2) {
-        createPollWithoutMessageTitle (emptyMessageTitle, question, answer1, answer2);
+        createPollMessage (emptyMessageTitle, question, answer1, answer2);
     }
 
     @Then("the user sees {string} message title error message on dashboard header")
@@ -73,12 +73,11 @@ public class PollCreationStepDefinition {
         pollCreationPage.recipientBoxDelete.click ();
         pollCreationPage.addRecipientLink.click ();
         pollCreationPage.recipientBox.sendKeys (employee + Keys.ENTER);
-
     }
 
     @And("the user creates a poll by adding {string}, empty {string} box, valid {string} and valid {string}")
     public void theUserCreatesAPollByAddingEmptyBoxValidAndValid(String messageTitle, String question, String answer1, String answer2) {
-        createPollWithMessageTitle (messageTitle, question, answer1, answer2);
+        createPollMessage (messageTitle, question, answer1, answer2);
     }
 
     @Then("the user sees {string} question error message on dashboard header")
@@ -89,56 +88,46 @@ public class PollCreationStepDefinition {
 
     @And("the user creates a poll by adding {string}, valid {string} box, empty {string} and empty {string}")
     public void theUserCreatesAPollByAddingValidBoxEmptyAndEmpty(String messageTitle, String question, String answer1, String answer2) {
-        createPollWithMessageTitle (messageTitle, question, answer1, answer2);
+        createPollMessage (messageTitle, question, answer1, answer2);
     }
 
     @Then("the user sees The question {string} has no answers. answer error message on dashboard header")
     public void theUserSeesTheQuestionHasNoAnswersAnswerErrorMessageOnDashboardHeader(String str) {
-        String expectedHeader = "The question " + str + " has no answers.";
+        String expectedHeader = "The question " +"\""+ str + "\"" +" has no answers.";
         String actualHeader = pollCreationPage.questionTitleHeader.getText ();
+        System.out.println ("expectedHeader = " + expectedHeader);
+        System.out.println ("actualHeader = " + actualHeader);
+        BrowserUtils.waitForPageToLoad (10);
         Assert.assertEquals (expectedHeader, actualHeader);
     }
 
-    public void createPollWithMessageTitle(String messageTitle, String question, String answer1, String answer2) {
+    public void createPollMessage(String messageTitle, String question, String answer1, String answer2) {
         DashboardPage dashboardPage = new DashboardPage ();
-        Actions actions = new Actions (Driver.getDriver ());
-
-        //String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
-        String timeStamp = LocalDateTime.now ().format (DateTimeFormatter.ofPattern ("MM/dd/yyyy HH:mm:ss"));
-        String msgText = "New message (" + timeStamp + ")";
-
         WebElement iframe = dashboardPage.iframeEditMsg;
         //Switch to the frame
         Driver.getDriver ().switchTo ().frame (iframe);
-        actions.sendKeys (messageTitle).keyDown (Keys.SHIFT).sendKeys (Keys.ENTER).keyUp (Keys.SHIFT).sendKeys (msgText).perform ();
+        if (!messageTitle.isEmpty ()) {
 
+            Actions actions = new Actions (Driver.getDriver ());
+            String timeStamp = LocalDateTime.now ().format (DateTimeFormatter.ofPattern ("MM/dd/yyyy HH:mm:ss"));
+            String msgText = "New message (" + timeStamp + ")";
+
+            actions.click (pollCreationPage.messageTitleBox)
+                    .sendKeys (messageTitle)
+                    .keyDown (Keys.SHIFT)
+                    .sendKeys (Keys.ENTER)
+                    .keyUp (Keys.SHIFT)
+                    .sendKeys (msgText)
+                    .perform ();
+        }
         Driver.getDriver ().switchTo ().defaultContent ();
         //Driver.getDriver ().switchTo ().frame (0);
-
         pollCreationPage.questionBox.sendKeys (question);
         pollCreationPage.answerBox1.sendKeys (answer1);
         pollCreationPage.answerBox2.sendKeys (answer2);
         BrowserUtils.sleep (1);
     }
-
-    public void createPollWithoutMessageTitle(String messageTitle, String question, String answer1, String answer2) {
-        DashboardPage dashboardPage = new DashboardPage ();
-
-        WebElement iframe = dashboardPage.iframeEditMsg;
-        //Switch to the frame
-        Driver.getDriver ().switchTo ().frame (iframe);
-        pollCreationPage.messageTitleBox.sendKeys (messageTitle);
-
-        Driver.getDriver ().switchTo ().defaultContent ();
-        //Driver.getDriver ().switchTo ().frame (0);
-
-        pollCreationPage.questionBox.sendKeys (question);
-        pollCreationPage.answerBox1.sendKeys (answer1);
-        pollCreationPage.answerBox2.sendKeys (answer2);
-        BrowserUtils.sleep (1);
-    }
-
-}
+ }
 
 
 

@@ -92,10 +92,6 @@ public class PollCreationStepDefinition {
         createPollWithMessageTitle (messageTitle, question, answer1, answer2);
     }
 
-    @Then("the user sees {string}<Question>{string} answer error message on dashboard header")
-    public void theUserSeesQuestionAnswerErrorMessageOnDashboardHeader(String str1, String str2) {
-    }
-
     @Then("the user sees The question {string} has no answers. answer error message on dashboard header")
     public void theUserSeesTheQuestionHasNoAnswersAnswerErrorMessageOnDashboardHeader(String str) {
         String expectedHeader = "The question " + str + " has no answers.";

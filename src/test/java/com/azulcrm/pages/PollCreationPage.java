@@ -42,6 +42,7 @@ public class PollCreationPage {
     @FindBy(xpath = "(//ol//input[@type='text'])[1]")
     public WebElement recipientBox;
 
-
+    @FindBy(xpath = "//span[@class='feed-add-info-text']")
+    public WebElement questionTitleHeader;
 
 }

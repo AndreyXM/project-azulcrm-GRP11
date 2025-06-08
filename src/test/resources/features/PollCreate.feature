@@ -81,7 +81,7 @@ Feature: Poll Creation
     And   the user creates a poll by adding "<MessageTitle>", valid "<Question>" box, empty "<Answer1>" and empty "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button
-    Then  the user sees "The question "<Question>" has no answers." answer error message on dashboard header
+    Then  the user sees The question "<Question>" has no answers. answer error message on dashboard header
 
     Examples:
 

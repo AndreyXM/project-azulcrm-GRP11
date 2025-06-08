@@ -48,7 +48,7 @@ public class PollCreationStepDefinition {
 
     @And("the user creates a poll by adding empty {string} and {string} and {string} and {string}")
     public void theUserCreatesAPollByAddingEmptyAndAndAnd(String emptyMessageTitle, String question, String answer1, String answer2) {
-    createPollWithoutMessageTitle (emptyMessageTitle,question,answer1,answer2);
+        createPollWithoutMessageTitle (emptyMessageTitle, question, answer1, answer2);
     }
 
     @Then("the user sees {string} message title error message on dashboard header")
@@ -78,15 +78,37 @@ public class PollCreationStepDefinition {
 
     @And("the user creates a poll by adding {string}, empty {string} box, valid {string} and valid {string}")
     public void theUserCreatesAPollByAddingEmptyBoxValidAndValid(String messageTitle, String question, String answer1, String answer2) {
-    createPollWithMessageTitle (messageTitle, question, answer1, answer2);
+        createPollWithMessageTitle (messageTitle, question, answer1, answer2);
     }
 
-    public void createPollWithMessageTitle(String messageTitle, String question, String answer1, String answer2){
+    @Then("the user sees {string} question error message on dashboard header")
+    public void theUserSeesQuestionErrorMessageOnDashboardHeader(String expectedHeader) {
+        String actualHeader = pollCreationPage.questionTitleHeader.getText ();
+        Assert.assertEquals (expectedHeader, actualHeader);
+    }
+
+    @And("the user creates a poll by adding {string}, valid {string} box, empty {string} and empty {string}")
+    public void theUserCreatesAPollByAddingValidBoxEmptyAndEmpty(String messageTitle, String question, String answer1, String answer2) {
+        createPollWithMessageTitle (messageTitle, question, answer1, answer2);
+    }
+
+    @Then("the user sees {string}<Question>{string} answer error message on dashboard header")
+    public void theUserSeesQuestionAnswerErrorMessageOnDashboardHeader(String str1, String str2) {
+    }
+
+    @Then("the user sees The question {string} has no answers. answer error message on dashboard header")
+    public void theUserSeesTheQuestionHasNoAnswersAnswerErrorMessageOnDashboardHeader(String str) {
+        String expectedHeader = "The question " + str + " has no answers.";
+        String actualHeader = pollCreationPage.questionTitleHeader.getText ();
+        Assert.assertEquals (expectedHeader, actualHeader);
+    }
+
+    public void createPollWithMessageTitle(String messageTitle, String question, String answer1, String answer2) {
         DashboardPage dashboardPage = new DashboardPage ();
         Actions actions = new Actions (Driver.getDriver ());
 
         //String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
-        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        String timeStamp = LocalDateTime.now ().format (DateTimeFormatter.ofPattern ("MM/dd/yyyy HH:mm:ss"));
         String msgText = "New message (" + timeStamp + ")";
 
         WebElement iframe = dashboardPage.iframeEditMsg;
@@ -102,7 +124,8 @@ public class PollCreationStepDefinition {
         pollCreationPage.answerBox2.sendKeys (answer2);
         BrowserUtils.sleep (1);
     }
-    public void createPollWithoutMessageTitle(String messageTitle, String question, String answer1, String answer2){
+
+    public void createPollWithoutMessageTitle(String messageTitle, String question, String answer1, String answer2) {
         DashboardPage dashboardPage = new DashboardPage ();
 
         WebElement iframe = dashboardPage.iframeEditMsg;
@@ -119,22 +142,6 @@ public class PollCreationStepDefinition {
         BrowserUtils.sleep (1);
     }
 
-
-    @Then("the user sees {string} question error message on dashboard header")
-    public void theUserSeesQuestionErrorMessageOnDashboardHeader(String expectedHeader) {
-        String actualHeader = pollCreationPage.questionTitleHeader.getText ();
-        Assert.assertEquals (expectedHeader, actualHeader);
-    }
-
-    @And("the user creates a poll by adding {string}, valid {string} box, empty {string} and empty {string}")
-    public void theUserCreatesAPollByAddingValidBoxEmptyAndEmpty(String messageTitle, String question, String answer1, String answer2) {
-    createPollWithMessageTitle (messageTitle, question, answer1, answer2);
-    }
-
-    @Then("the user sees {string}<Question>{string} answer error message on dashboard header")
-    public void theUserSeesQuestionAnswerErrorMessageOnDashboardHeader(String str1, String str2) {
-
-    }
 }
 
 

@@ -42,18 +42,8 @@ public class UploadFilesAsMsgDefs {
     public void the_user_see_selected_in_message_window(String fileName) {
         Driver.getDriver().switchTo().frame(dashboardPage.iframeEditMsg);
 
-        String locator;
-        if (fileName.toLowerCase().endsWith(".png") ||
-                fileName.toLowerCase().endsWith(".jpg") ||
-                fileName.toLowerCase().endsWith(".jpeg")) {
+        WebElement addedFile = Driver.getDriver().findElement(By.xpath(getDynamicLocatorByFileName(fileName)));
 
-            String fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf("."));
-            locator = "//img[contains(@src, '" + fileNameWithoutExt + "')]";
-        } else {
-            locator = "//span[.='" + fileName + "']";
-        }
-
-        WebElement addedFile = Driver.getDriver().findElement(By.xpath(locator));;
         BrowserUtils.waitForVisibility(addedFile, 5);
         Assert.assertTrue(addedFile.isDisplayed());
     }
@@ -66,7 +56,28 @@ public class UploadFilesAsMsgDefs {
     @Then("the user not see selected {string} in Message window")
     public void the_user_not_see_selected_in_message_window(String fileName) {
         Driver.getDriver().switchTo().frame(dashboardPage.iframeEditMsg);
+        List<WebElement> addedFile = Driver.getDriver().findElements(By.xpath(getDynamicLocatorByFileName(fileName)));
+        Assert.assertTrue(addedFile.isEmpty());
+    }
 
+    @Then("the user should not see file {string} in Message window")
+    public void the_user_should_not_see_file_in_message_window(String fileName) {
+        Driver.getDriver().switchTo().frame(dashboardPage.iframeEditMsg);
+
+        String locator;
+        if (fileName.toLowerCase().endsWith(".bmp")) {
+            String fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf("."));
+            locator = "//img[contains(@src, '" + fileNameWithoutExt + "')]";
+
+        } else {
+            locator = "//span[.='" + fileName + "']";
+        }
+
+        List<WebElement> addedFile = Driver.getDriver().findElements(By.xpath(locator));
+        Assert.assertTrue("The unsupported file " + fileName + " added to the message", addedFile.isEmpty());
+    }
+
+    public String getDynamicLocatorByFileName(String fileName){
         String locator;
         if (fileName.toLowerCase().endsWith(".png") ||
                 fileName.toLowerCase().endsWith(".jpg") ||
@@ -79,7 +90,6 @@ public class UploadFilesAsMsgDefs {
             locator = "//span[.='" + fileName + "']";
         }
 
-        List<WebElement> addedFile = Driver.getDriver().findElements(By.xpath(locator));
-        Assert.assertTrue(addedFile.isEmpty());
+        return locator;
     }
 }

@@ -1,7 +1,6 @@
 @uploadFilesAsMsg
 Feature: functionality of Uploading Files in Message
 
-
   Scenario Outline: user "<userType>" should be able to upload "<File>" as messages
     Given the user is on the login page
     When the user logged in as "<userType>"
@@ -44,3 +43,19 @@ Feature: functionality of Uploading Files in Message
       | hr        | TestDocsFile.docx |
       | helpdesk  | TestTextFile.txt  |
       | marketing | TestJPEGFile.jpeg |
+
+    @uploadUnsupportedFilesAsMsg
+  Scenario Outline: user "<userType>" should NOT be able to upload "<File>"
+    Given the user is on the login page
+    When the user logged in as "<userType>"
+    And the user clicks on Message
+    And the user clicks on Upload Files
+    And the user clicks on Upload Files and Images to select file "<File>"
+    And the user click on Insert In Text
+    Then the user should not see file "<File>" in Message window
+
+    Examples:
+      | userType  | File               |
+      | hr        | TestEXCELFile.xlsx |
+      | helpdesk  | TestRTFFile.rtf    |
+      | marketing | TestBMPFile.bmp    |

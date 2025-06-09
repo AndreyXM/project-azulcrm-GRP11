@@ -102,6 +102,7 @@ public class AddLinkInMessageStepDefs {
         WebElement link = activityStreamPage.messageLink;
         Assert.assertTrue(link.isDisplayed());
         String actualHref = link.getAttribute("href");
+        assert actualHref != null;
         Assert.assertTrue(actualHref.contains("https://example.com"));
         Assert.assertEquals("https://example.com", link.getText());
     }

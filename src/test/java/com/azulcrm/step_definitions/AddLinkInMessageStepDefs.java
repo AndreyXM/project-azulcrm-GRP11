@@ -79,6 +79,7 @@ public class AddLinkInMessageStepDefs {
                 actualURL.contains(linkURL));
 
     }
+
     //Step Definition for the Error Message:
     @Then("the system should display an error message about duplicate content")
     public void the_system_should_display_error_message() {
@@ -90,8 +91,6 @@ public class AddLinkInMessageStepDefs {
     public void fills_in_the_link_text_field_with_exact_text(String linkText) {
         activityStreamPage.linkTextInput.sendKeys(linkText);
     }
-
-    //Third possible scenario
 
     @When("leaves the Link text field empty")
     public void leaves_the_link_text_field_empty() {

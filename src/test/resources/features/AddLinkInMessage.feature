@@ -41,3 +41,15 @@ Feature: Add link in message
     And the user clicks send button
 
     Then the system should display an error message about duplicate content
+
+
+  Scenario: User sends a message with a link but no link text
+    Given the user logged in as "hr"
+    When the user is on the activity stream page
+    And the user clicks on the Send Message field
+    And selects the Link option
+    And leaves the Link text field empty
+    And fills in the Link URL field with "https://example.com"
+    And clicks the Save button
+    And the user clicks send button
+    Then the message should display the raw URL as a clickable link

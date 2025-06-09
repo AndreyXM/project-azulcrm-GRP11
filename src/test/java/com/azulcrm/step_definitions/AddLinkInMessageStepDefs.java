@@ -6,6 +6,7 @@ import com.azulcrm.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -88,5 +89,21 @@ public class AddLinkInMessageStepDefs {
     @When("fills in the Link text field with exact text {string}")
     public void fills_in_the_link_text_field_with_exact_text(String linkText) {
         activityStreamPage.linkTextInput.sendKeys(linkText);
+    }
+
+    //Third possible scenario
+
+    @When("leaves the Link text field empty")
+    public void leaves_the_link_text_field_empty() {
+        activityStreamPage.linkTextInput.clear();
+    }
+
+    @Then("the message should display the raw URL as a clickable link")
+    public void the_message_should_display_raw_url() {
+        WebElement link = activityStreamPage.messageLink;
+        Assert.assertTrue(link.isDisplayed());
+        String actualHref = link.getAttribute("href");
+        Assert.assertTrue(actualHref.contains("https://example.com"));
+        Assert.assertEquals("https://example.com", link.getText());
     }
 }

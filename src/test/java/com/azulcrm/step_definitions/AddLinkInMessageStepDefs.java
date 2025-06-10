@@ -11,6 +11,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
@@ -97,5 +98,32 @@ public class AddLinkInMessageStepDefs {
         Assert.assertTrue("The redirection URL is incorrect!",
                 actualURL.contains(linkURL));
 
+    }
+
+    //Step Definition for the Error Message:
+    @Then("the system should display an error message about duplicate content")
+    public void the_system_should_display_error_message() {
+        BrowserUtils.waitForVisibility(activityStreamPage.duplicateMessageError, 5);
+        Assert.assertTrue(activityStreamPage.duplicateMessageError.isDisplayed());
+    }
+
+    @When("fills in the Link text field with exact text {string}")
+    public void fills_in_the_link_text_field_with_exact_text(String linkText) {
+        activityStreamPage.linkTextInput.sendKeys(linkText);
+    }
+
+    @When("leaves the Link text field empty")
+    public void leaves_the_link_text_field_empty() {
+        activityStreamPage.linkTextInput.clear();
+    }
+
+    @Then("the message should display the raw URL as a clickable link")
+    public void the_message_should_display_raw_url() {
+        WebElement link = activityStreamPage.messageLink;
+        Assert.assertTrue(link.isDisplayed());
+        String actualHref = link.getAttribute("href");
+        assert actualHref != null;
+        Assert.assertTrue(actualHref.contains("https://example.com"));
+        Assert.assertEquals("https://example.com", link.getText());
     }
 }

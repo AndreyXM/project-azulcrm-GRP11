@@ -1,11 +1,16 @@
 package com.azulcrm.step_definitions;
 
 import com.azulcrm.pages.ActivityStreamPage;
+import com.azulcrm.pages.DashboardPage;
 import com.azulcrm.utilities.BrowserUtils;
 import com.azulcrm.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +22,7 @@ public class AddLinkInMessageStepDefs {
 
     @Then("the user is on the activity stream page")
     public void the_user_is_on_the_activity_stream_page() {
-        BrowserUtils.verifyURLContains("stream");
+        BrowserUtils.waitForTitleContains("Portal");
     }
 
     @When("the user clicks on the Send Message field")
@@ -32,9 +37,25 @@ public class AddLinkInMessageStepDefs {
 
     @When("fills in the Link text field with {string}")
     public void fills_in_the_text_field_with(String linkText) {
-        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String finalText = timeStamp + " - " + linkText;
-        activityStreamPage.linkTextInput.sendKeys(finalText);
+        DashboardPage dashboardPage = new DashboardPage();
+        Actions actions = new Actions(Driver.getDriver());
+
+        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        String msgText = "New message (" + timeStamp + ")";
+
+        WebElement iframe = dashboardPage.iframeEditMsg;
+        //Switch to the frame
+        Driver.getDriver().switchTo().frame(iframe);
+
+        actions.sendKeys("")
+                .keyDown(Keys.SHIFT) // Press down the Shift key
+                .sendKeys(Keys.ENTER) // Send the Enter key to the text field while Shift is held down
+                .keyUp(Keys.SHIFT) // Release the Shift key
+                .sendKeys(msgText)
+                .perform(); // Execute the actions
+
+        Driver.getDriver().switchTo().defaultContent();
+        activityStreamPage.linkTextInput.sendKeys(linkText);
     }
 
     @When("fills in the Link URL field with {string}")
@@ -77,5 +98,32 @@ public class AddLinkInMessageStepDefs {
         Assert.assertTrue("The redirection URL is incorrect!",
                 actualURL.contains(linkURL));
 
+    }
+
+    //Step Definition for the Error Message:
+    @Then("the system should display an error message about duplicate content")
+    public void the_system_should_display_error_message() {
+        BrowserUtils.waitForVisibility(activityStreamPage.duplicateMessageError, 5);
+        Assert.assertTrue(activityStreamPage.duplicateMessageError.isDisplayed());
+    }
+
+    @When("fills in the Link text field with exact text {string}")
+    public void fills_in_the_link_text_field_with_exact_text(String linkText) {
+        activityStreamPage.linkTextInput.sendKeys(linkText);
+    }
+
+    @When("leaves the Link text field empty")
+    public void leaves_the_link_text_field_empty() {
+        activityStreamPage.linkTextInput.clear();
+    }
+
+    @Then("the message should display the raw URL as a clickable link")
+    public void the_message_should_display_raw_url() {
+        WebElement link = activityStreamPage.messageLink;
+        Assert.assertTrue(link.isDisplayed());
+        String actualHref = link.getAttribute("href");
+        assert actualHref != null;
+        Assert.assertTrue(actualHref.contains("https://example.com"));
+        Assert.assertEquals("https://example.com", link.getText());
     }
 }

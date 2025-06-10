@@ -28,4 +28,7 @@ public class ActivityStreamPage {
 
     @FindBy(xpath = "//div[@class='feed-post-text-block']//a")
     public WebElement messageLink;
+
+    @FindBy(xpath = "//span[contains(text(),'You have already added your post')]")
+    public WebElement duplicateMessageError;
 }

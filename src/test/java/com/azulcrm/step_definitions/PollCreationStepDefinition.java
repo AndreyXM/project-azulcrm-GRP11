@@ -23,7 +23,6 @@ public class PollCreationStepDefinition {
     @Then("the user clicks on poll button")
     public void the_user_clicks_on_poll_button() {
         pollCreationPage.pollButton.click ();
-        BrowserUtils.sleep (1);
     }
 
     @Then("the user creates a poll by adding {string}, {string} and {string} and {string}")
@@ -34,7 +33,6 @@ public class PollCreationStepDefinition {
     @And("the user selects Allow multiple choice checkbox")
     public void theUserSelectsAllowMultipleChoiceCheckbox() {
         pollCreationPage.multipleChoiceBox.click ();
-        BrowserUtils.waitFor (2);
         boolean isChecked = pollCreationPage.multipleChoiceBox.isSelected ();
         Assert.assertTrue ("CheckBox is not checked", isChecked);
         //System.out.println ("pollCreationPage.multipleChoiceBox.isSelected () = " + pollCreationPage.multipleChoiceBox.isSelected ());
@@ -43,7 +41,6 @@ public class PollCreationStepDefinition {
     @Then("the user clicks send button")
     public void theUserClicksSendButton() {
         pollCreationPage.pollSendButton.click ();
-        BrowserUtils.waitFor (1);
     }
 
     @And("the user creates a poll by adding empty {string} and {string} and {string} and {string}")
@@ -65,7 +62,7 @@ public class PollCreationStepDefinition {
 
         pollCreationPage.messageTitleBox.sendKeys (messageTitle);
         Driver.getDriver ().switchTo ().defaultContent ();
-        BrowserUtils.waitFor (2);
+        BrowserUtils.waitFor (1);
     }
 
     @And("the user enters valid {string} in the recipient box")
@@ -125,7 +122,6 @@ public class PollCreationStepDefinition {
         pollCreationPage.questionBox.sendKeys (question);
         pollCreationPage.answerBox1.sendKeys (answer1);
         pollCreationPage.answerBox2.sendKeys (answer2);
-        BrowserUtils.sleep (1);
     }
  }
 

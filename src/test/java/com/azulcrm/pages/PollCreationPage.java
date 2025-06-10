@@ -30,4 +30,19 @@ public class PollCreationPage {
     @FindBy(xpath = "//tbody//button[@id='blog-submit-button-save']")
     public WebElement pollSendButton;
 
+    @FindBy(xpath = "//span[@class='feed-add-info-text']")
+    public WebElement messageTitleHeader;
+
+    @FindBy(xpath = "//span[@class='feed-add-post-del-but']")
+    public WebElement recipientBoxDelete;
+
+    @FindBy(xpath = "//a[@id='bx-destination-tag']")
+    public WebElement addRecipientLink;
+
+    @FindBy(xpath = "(//ol//input[@type='text'])[1]")
+    public WebElement recipientBox;
+
+    @FindBy(xpath = "//span[@class='feed-add-info-text']")
+    public WebElement questionTitleHeader;
+
 }

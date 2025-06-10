@@ -1,12 +1,12 @@
 @logout
 Feature: Users should be able to logout
 
-  @wip
   Scenario Outline: Verify user logout
-    Given the user logged in as "<userType>"
-    When the user clicks on profile link
+    Given the user is on the login page
+    When the user logged in as "<userType>"
+    And the user clicks on profile link
     And the user clicks on logout link
-    Then the user see autorization page
+    Then the user see authorization page
 
     Examples:
       | userType  |

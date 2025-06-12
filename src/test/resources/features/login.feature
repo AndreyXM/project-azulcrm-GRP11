@@ -1,8 +1,10 @@
 @login
 Feature: Users should be able to login
 
-  Scenario Outline: Verify login with "<userType>" user types
+  Background:
     Given the user is on the login page
+
+  Scenario Outline: Verify login with "<userType>" user types
     When the user logged in as "<userType>"
     Then the user see dashboard page
 
@@ -13,9 +15,8 @@ Feature: Users should be able to login
       | marketing |
 
   Scenario Outline: Attempting Login with Invalid Credentials: username "<userName>" and password "<password>"
-    Given the user is on the login page
     When the user enters an username "<userName>" and password "<password>"
-    Then the login should fail
+    Then the login should failed
     And an error message should be displayed
 
     Examples:

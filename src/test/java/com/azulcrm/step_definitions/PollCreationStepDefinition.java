@@ -1,6 +1,5 @@
 package com.azulcrm.step_definitions;
 
-
 import com.azulcrm.pages.DashboardPage;
 import com.azulcrm.pages.PollCreationPage;
 import com.azulcrm.utilities.BrowserUtils;
@@ -20,11 +19,6 @@ public class PollCreationStepDefinition {
 
     PollCreationPage pollCreationPage = new PollCreationPage ();
 
-    @Then("the user clicks on poll button")
-    public void the_user_clicks_on_poll_button() {
-        pollCreationPage.pollButton.click ();
-    }
-
     @Then("the user creates a poll by adding {string}, {string} and {string} and {string}")
     public void theUserCreatesAPollByAddingAndAnd(String messageTitleTest1, String questionTest1, String answer1Test1, String answer2Test1) {
         createPollMessage (messageTitleTest1, questionTest1, answer1Test1, answer2Test1);
@@ -40,7 +34,8 @@ public class PollCreationStepDefinition {
 
     @Then("the user clicks send button")
     public void theUserClicksSendButton() {
-        pollCreationPage.pollSendButton.click ();
+        pollCreationPage.sendButton.click ();
+        BrowserUtils.waitFor(1);
     }
 
     @And("the user creates a poll by adding empty {string} and {string} and {string} and {string}")
@@ -119,14 +114,9 @@ public class PollCreationStepDefinition {
         }
         Driver.getDriver ().switchTo ().defaultContent ();
         //Driver.getDriver ().switchTo ().frame (0);
+        BrowserUtils.waitForVisibility( pollCreationPage.questionBox, 3);
         pollCreationPage.questionBox.sendKeys (question);
         pollCreationPage.answerBox1.sendKeys (answer1);
         pollCreationPage.answerBox2.sendKeys (answer2);
     }
  }
-
-
-
-
-
-

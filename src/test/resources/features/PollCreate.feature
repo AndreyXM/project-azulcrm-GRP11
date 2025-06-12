@@ -10,7 +10,7 @@ Feature: Poll Creation functionality
 
    #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     Then  the user clicks send button
@@ -27,7 +27,7 @@ Feature: Poll Creation functionality
 
    #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding empty "<MessageTitle>" and "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button
@@ -45,7 +45,7 @@ Feature: Poll Creation functionality
 
    #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user enters valid "<Employee>" in the recipient box
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
@@ -63,7 +63,7 @@ Feature: Poll Creation functionality
 
    #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", empty "<Question>" box, valid "<Answer1>" and valid "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button
@@ -81,7 +81,7 @@ Feature: Poll Creation functionality
 
    #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", valid "<Question>" box, empty "<Answer1>" and empty "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button

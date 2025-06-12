@@ -10,8 +10,6 @@ import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
@@ -25,11 +23,6 @@ public class AddLinkInMessageStepDefs {
         BrowserUtils.waitForTitleContains("Portal");
     }
 
-    @When("the user clicks on the Send Message field")
-    public void the_user_clicks_on_the_field() {
-        activityStreamPage.sendMessageField.click();
-    }
-
     @When("selects the Link option")
     public void selects_the_link_option() {
         activityStreamPage.addLinkBtn.click();
@@ -37,25 +30,29 @@ public class AddLinkInMessageStepDefs {
 
     @When("fills in the Link text field with {string}")
     public void fills_in_the_text_field_with(String linkText) {
-        DashboardPage dashboardPage = new DashboardPage();
-        Actions actions = new Actions(Driver.getDriver());
+       if (!linkText.isEmpty()) {
 
-        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
-        String msgText = "New message (" + timeStamp + ")";
+           DashboardPage dashboardPage = new DashboardPage();
+           Actions actions = new Actions(Driver.getDriver());
 
-        WebElement iframe = dashboardPage.iframeEditMsg;
-        //Switch to the frame
-        Driver.getDriver().switchTo().frame(iframe);
+           String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+           String msgText = "New message (" + timeStamp + ")";
 
-        actions.sendKeys("")
-                .keyDown(Keys.SHIFT) // Press down the Shift key
-                .sendKeys(Keys.ENTER) // Send the Enter key to the text field while Shift is held down
-                .keyUp(Keys.SHIFT) // Release the Shift key
-                .sendKeys(msgText)
-                .perform(); // Execute the actions
+           WebElement iframe = dashboardPage.iframeEditMsg;
+           //Switch to the frame
+           Driver.getDriver().switchTo().frame(iframe);
 
-        Driver.getDriver().switchTo().defaultContent();
-        activityStreamPage.linkTextInput.sendKeys(linkText);
+           actions.sendKeys("")
+                   .keyDown(Keys.SHIFT) // Press down the Shift key
+                   .sendKeys(Keys.ENTER) // Send the Enter key to the text field while Shift is held down
+                   .keyUp(Keys.SHIFT) // Release the Shift key
+                   .sendKeys(msgText)
+                   .perform(); // Execute the actions
+
+           Driver.getDriver().switchTo().defaultContent();
+           activityStreamPage.linkTextInput.sendKeys(linkText);
+       }
+       else activityStreamPage.linkTextInput.clear();
     }
 
     @When("fills in the Link URL field with {string}")
@@ -112,18 +109,14 @@ public class AddLinkInMessageStepDefs {
         activityStreamPage.linkTextInput.sendKeys(linkText);
     }
 
-    @When("leaves the Link text field empty")
-    public void leaves_the_link_text_field_empty() {
-        activityStreamPage.linkTextInput.clear();
-    }
 
-    @Then("the message should display the raw URL as a clickable link")
-    public void the_message_should_display_raw_url() {
-        WebElement link = activityStreamPage.messageLink;
-        Assert.assertTrue(link.isDisplayed());
-        String actualHref = link.getAttribute("href");
+    @Then("the message should display the {string} as a clickable link")
+    public void theMessageShouldDisplayTheAsAClickableLink(String linkURL) {
+        BrowserUtils.waitFor(1);
+        Assert.assertTrue(activityStreamPage.messageLink.isDisplayed());
+        String actualHref = activityStreamPage.messageLink.getAttribute("href");
         assert actualHref != null;
-        Assert.assertTrue(actualHref.contains("https://example.com"));
-        Assert.assertEquals("https://example.com", link.getText());
+        Assert.assertTrue(actualHref.contains(linkURL));
+        Assert.assertEquals(linkURL, activityStreamPage.messageLink.getText());
     }
 }

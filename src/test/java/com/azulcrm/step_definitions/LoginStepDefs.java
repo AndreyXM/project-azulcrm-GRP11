@@ -40,8 +40,8 @@ public class LoginStepDefs {
         loginPage.login(userName, password);
     }
 
-    @Then("the login should fail")
-    public void the_login_should_fail() {
+    @Then("the login should failed")
+    public void the_login_should_failed() {
         BrowserUtils.waitForTitleContains(expectedLoginTitle);
     }
 
@@ -49,6 +49,4 @@ public class LoginStepDefs {
     public void an_error_message_should_be_displayed() {
         BrowserUtils.verifyElementDisplayed(loginPage.errorMsg);
     }
-
-
 }

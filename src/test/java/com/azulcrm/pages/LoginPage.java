@@ -1,6 +1,5 @@
 package com.azulcrm.pages;
 
-
 import com.azulcrm.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,12 +23,10 @@ public class LoginPage {
     @FindBy (xpath = "//div[@class='errortext']")
     public WebElement errorMsg;
 
-
     public void login(String userNameStr, String passwordStr) {
         userName.sendKeys(userNameStr);
         password.sendKeys(passwordStr);
         logInButton.click();
         // verification that we logged
     }
-
 }

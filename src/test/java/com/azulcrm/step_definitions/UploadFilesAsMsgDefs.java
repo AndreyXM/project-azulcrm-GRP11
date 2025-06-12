@@ -14,9 +14,9 @@ import java.util.List;
 public class UploadFilesAsMsgDefs {
     DashboardPage dashboardPage = new DashboardPage();
 
-    @Then("the user clicks on Message")
-    public void the_user_clicks_on_message() {
-        dashboardPage.MessageLink.click();
+    @Then("the user clicks on main menu {string}")
+    public void the_user_clicks_on_main_menu(String mainMenuName) {
+        dashboardPage.clickOnMainMenuByText(mainMenuName);
     }
 
     @When("the user clicks on Upload Files")
@@ -77,7 +77,7 @@ public class UploadFilesAsMsgDefs {
         Assert.assertTrue("The unsupported file " + fileName + " added to the message", addedFile.isEmpty());
     }
 
-    public String getDynamicLocatorByFileName(String fileName){
+    public String getDynamicLocatorByFileName(String fileName) {
         String locator;
         if (fileName.toLowerCase().endsWith(".png") ||
                 fileName.toLowerCase().endsWith(".jpg") ||

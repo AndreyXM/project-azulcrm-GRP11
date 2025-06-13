@@ -38,7 +38,7 @@ Feature: Message Creation
   @RecipientVerification_Test
   Scenario Outline: Recipient verification
 
-    Given the user is on the login page
+    #Given the user is on the login page
     When the user logged in as "<userType>"
     And the user clicks on main menu "Message"
     And the user cancel the recipient

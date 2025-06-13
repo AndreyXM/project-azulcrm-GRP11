@@ -35,4 +35,7 @@ public class PollCreationPage extends BaseDashboardPage {
     @FindBy(xpath = "//span[@class='feed-add-info-text']")
     public WebElement questionTitleHeader;
 
+    @FindBy(xpath = "(//div[@class='feed-post-block feed-post-block-vote feed-post-block-short feed-post-block-separator'])[1]//div[@class='feed-post-text-block-inner-inner']")
+    public WebElement creationPollVerification;
+
 }

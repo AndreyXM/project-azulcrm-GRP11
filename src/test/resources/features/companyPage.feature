@@ -1,5 +1,6 @@
 @companyPage
 Feature: Company Page Functionality
+  As a user, I should be able to access to the Company page .
 
   Scenario Outline: User "<userType>" should be able to access the company page
     Given the user is on the login page

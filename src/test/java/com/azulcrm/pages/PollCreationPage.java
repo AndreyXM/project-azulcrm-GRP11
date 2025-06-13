@@ -1,16 +1,9 @@
 package com.azulcrm.pages;
 
-import com.azulcrm.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class PollCreationPage {
-    public PollCreationPage(){
-        PageFactory.initElements (Driver.getDriver (),this);
-    }
-    @FindBy(xpath = "//tbody//span//span[.='Poll']")
-    public WebElement pollButton;
+public class PollCreationPage extends BaseDashboardPage {
 
     @FindBy(xpath = "//body[@contenteditable='true']")
     public WebElement messageTitleBox;
@@ -27,9 +20,6 @@ public class PollCreationPage {
     @FindBy(xpath = "//tbody//input[@class='vote-checkbox']")
     public WebElement multipleChoiceBox;
 
-    @FindBy(xpath = "//tbody//button[@id='blog-submit-button-save']")
-    public WebElement pollSendButton;
-
     @FindBy(xpath = "//span[@class='feed-add-info-text']")
     public WebElement messageTitleHeader;
 
@@ -44,5 +34,8 @@ public class PollCreationPage {
 
     @FindBy(xpath = "//span[@class='feed-add-info-text']")
     public WebElement questionTitleHeader;
+
+    @FindBy(xpath = "(//div[@class='feed-post-block feed-post-block-vote feed-post-block-short feed-post-block-separator'])[1]//div[@class='feed-post-text-block-inner-inner']")
+    public WebElement creationPollVerification;
 
 }

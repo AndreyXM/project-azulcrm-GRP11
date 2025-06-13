@@ -1,6 +1,5 @@
 package com.azulcrm.step_definitions;
 
-
 import com.azulcrm.pages.DashboardPage;
 import com.azulcrm.pages.PollCreationPage;
 import com.azulcrm.utilities.BrowserUtils;
@@ -20,11 +19,9 @@ public class PollCreationStepDefinition {
 
     PollCreationPage pollCreationPage = new PollCreationPage ();
 
-    @Then("the user clicks on poll button")
-    public void the_user_clicks_on_poll_button() {
-        pollCreationPage.pollButton.click ();
-        BrowserUtils.sleep (1);
-    }
+    Actions actions = new Actions (Driver.getDriver ());
+    String timeStamp = LocalDateTime.now ().format (DateTimeFormatter.ofPattern ("MM/dd/yyyy HH:mm:ss"));
+    String msgText = "New message (" + timeStamp + ")";
 
     @Then("the user creates a poll by adding {string}, {string} and {string} and {string}")
     public void theUserCreatesAPollByAddingAndAnd(String messageTitleTest1, String questionTest1, String answer1Test1, String answer2Test1) {
@@ -34,7 +31,6 @@ public class PollCreationStepDefinition {
     @And("the user selects Allow multiple choice checkbox")
     public void theUserSelectsAllowMultipleChoiceCheckbox() {
         pollCreationPage.multipleChoiceBox.click ();
-        BrowserUtils.waitFor (2);
         boolean isChecked = pollCreationPage.multipleChoiceBox.isSelected ();
         Assert.assertTrue ("CheckBox is not checked", isChecked);
         //System.out.println ("pollCreationPage.multipleChoiceBox.isSelected () = " + pollCreationPage.multipleChoiceBox.isSelected ());
@@ -42,8 +38,8 @@ public class PollCreationStepDefinition {
 
     @Then("the user clicks send button")
     public void theUserClicksSendButton() {
-        pollCreationPage.pollSendButton.click ();
-        BrowserUtils.waitFor (1);
+        pollCreationPage.sendButton.click ();
+        //BrowserUtils.waitFor(1);
     }
 
     @And("the user creates a poll by adding empty {string} and {string} and {string} and {string}")
@@ -65,7 +61,7 @@ public class PollCreationStepDefinition {
 
         pollCreationPage.messageTitleBox.sendKeys (messageTitle);
         Driver.getDriver ().switchTo ().defaultContent ();
-        BrowserUtils.waitFor (2);
+        BrowserUtils.waitFor (1);
     }
 
     @And("the user enters valid {string} in the recipient box")
@@ -93,11 +89,11 @@ public class PollCreationStepDefinition {
 
     @Then("the user sees The question {string} has no answers. answer error message on dashboard header")
     public void theUserSeesTheQuestionHasNoAnswersAnswerErrorMessageOnDashboardHeader(String str) {
-        String expectedHeader = "The question " +"\""+ str + "\"" +" has no answers.";
+        String expectedHeader = "The question " + "\"" + str + "\"" + " has no answers.";
         String actualHeader = pollCreationPage.questionTitleHeader.getText ();
         System.out.println ("expectedHeader = " + expectedHeader);
         System.out.println ("actualHeader = " + actualHeader);
-        BrowserUtils.waitForPageToLoad (10);
+        BrowserUtils.waitForPageToLoad (5);
         Assert.assertEquals (expectedHeader, actualHeader);
     }
 
@@ -108,9 +104,9 @@ public class PollCreationStepDefinition {
         Driver.getDriver ().switchTo ().frame (iframe);
         if (!messageTitle.isEmpty ()) {
 
-            Actions actions = new Actions (Driver.getDriver ());
-            String timeStamp = LocalDateTime.now ().format (DateTimeFormatter.ofPattern ("MM/dd/yyyy HH:mm:ss"));
-            String msgText = "New message (" + timeStamp + ")";
+//            Actions actions = new Actions (Driver.getDriver ());
+//            String timeStamp = LocalDateTime.now ().format (DateTimeFormatter.ofPattern ("MM/dd/yyyy HH:mm:ss"));
+//            String msgText = "New message (" + timeStamp + ")";
 
             actions.click (pollCreationPage.messageTitleBox)
                     .sendKeys (messageTitle)
@@ -122,15 +118,20 @@ public class PollCreationStepDefinition {
         }
         Driver.getDriver ().switchTo ().defaultContent ();
         //Driver.getDriver ().switchTo ().frame (0);
+        BrowserUtils.waitForVisibility (pollCreationPage.questionBox, 3);
         pollCreationPage.questionBox.sendKeys (question);
         pollCreationPage.answerBox1.sendKeys (answer1);
         pollCreationPage.answerBox2.sendKeys (answer2);
-        BrowserUtils.sleep (1);
     }
- }
 
+    @Then("the user verify that poll is created by matching the {string} and the time on the message title")
+    public void theUserVerifyThatPollIsCreatedByMatchingTheAndTheTimeOnTheMessageTitle(String messageTitle) {
+        BrowserUtils.sleep (3);
+        String expectedMessageTime = messageTitle + "\n" + "New message (" + timeStamp + ")";
+        String actualMessageTimeText = pollCreationPage.creationPollVerification.getText ();
 
+        System.out.println ("actualMessageTimeText = " + actualMessageTimeText);
+        Assert.assertEquals (expectedMessageTime, actualMessageTimeText);
 
-
-
-
+    }
+}

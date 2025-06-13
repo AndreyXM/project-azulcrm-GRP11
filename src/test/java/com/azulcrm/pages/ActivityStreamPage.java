@@ -1,21 +1,9 @@
 package com.azulcrm.pages;
 
-import com.azulcrm.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import javax.xml.xpath.XPath;
-import java.util.List;
-
-public class ActivityStreamPage {
-
-    public ActivityStreamPage() {
-        PageFactory.initElements(Driver.getDriver(), this);
-    }
-
-    @FindBy(xpath = "//span[.='Send message …']")
-    public WebElement sendMessageField;
+public class ActivityStreamPage extends BaseDashboardPage {
 
     @FindBy(xpath = "//span[@title='Link']")
     public WebElement addLinkBtn;
@@ -29,7 +17,7 @@ public class ActivityStreamPage {
     @FindBy(xpath = "//input[@value='Save']")
     public WebElement saveBtn;
 
-    @FindBy(xpath = "//div[@class='feed-post-text-block']//a")
+    @FindBy(xpath = "(//div[@class='feed-post-text-block']//a)[1]")
     public WebElement messageLink;
 
     @FindBy(xpath = "//span[contains(text(),'You have already added your post')]")

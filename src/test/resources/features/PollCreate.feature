@@ -1,15 +1,20 @@
 @allPollsTest
-Feature: Poll Creation
+Feature: Poll Creation functionality
+    User Story : As a user, I should be able to create a poll by clicking on Poll tab under Active Stream.
+
+  Background:
+    Given the user is on the login page
 
   @PollTest
   Scenario Outline: Poll creation as user
 
-    Given the user is on the login page
+   #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
-    Then  the user clicks send button
+    And   the user clicks send button
+    Then  the user verify that poll is created by matching the "<MessageTitle>" and the time on the message title
 
     Examples:
 
@@ -19,11 +24,11 @@ Feature: Poll Creation
       | marketing | Title check3 | Test Marketing Question? | Test Marketing Answer 1 | Test Marketing Answer 2 |
 
   @MessageTitleVerificationTest
-  Scenario Outline: Message Title verification
+  Scenario Outline: Poll creation Message Title verification
 
-    Given the user is on the login page
+   #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding empty "<MessageTitle>" and "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button
@@ -37,15 +42,16 @@ Feature: Poll Creation
       | marketing |              | Test Marketing Question? | Test Marketing Answer 1 | Test Marketing Answer 2 |
 
   @RecipientTest
-  Scenario Outline: Recipient verification
+  Scenario Outline: Poll creation Recipient verification
 
-    Given the user is on the login page
+   #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user enters valid "<Employee>" in the recipient box
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
-    Then  the user clicks send button
+    And   the user clicks send button
+    Then  the user verify that poll is created by matching the "<MessageTitle>" and the time on the message title
 
     Examples:
 
@@ -55,11 +61,11 @@ Feature: Poll Creation
       | marketing | Title check3 | Employee | Test Marketing Question? | Test Marketing Answer 1 | Test Marketing Answer 2 |
 
   @QuestionTextTest
-  Scenario Outline: Question text error message verification
+  Scenario Outline: Poll creation Question text error message verification
 
-    Given the user is on the login page
+   #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", empty "<Question>" box, valid "<Answer1>" and valid "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button
@@ -73,11 +79,11 @@ Feature: Poll Creation
       | marketing | Title check3 |          | Test Marketing Answer 1 | Test Marketing Answer 2 |
 
   @AnswerTextTest
-  Scenario Outline: Answer text error verification
+  Scenario Outline: Poll creation Answer text error verification
 
-    Given the user is on the login page
+   #Given the user is on the login page
     When  the user logged in as "<userType>"
-    When  the user clicks on poll button
+    And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", valid "<Question>" box, empty "<Answer1>" and empty "<Answer2>"
     And   the user selects Allow multiple choice checkbox
     And   the user clicks send button

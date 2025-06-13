@@ -1,6 +1,5 @@
 package com.azulcrm.step_definitions;
 
-import com.azulcrm.utilities.BrowserUtils;
 import com.azulcrm.utilities.ConfigurationReader;
 import com.azulcrm.utilities.Driver;
 import io.cucumber.java.After;
@@ -20,7 +19,7 @@ public class Hooks {
     //import the @Before coming from io.cucumber.java
     @Before(order = 1)
     public void setupMethod() {
-        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
 
@@ -33,8 +32,6 @@ public class Hooks {
             byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
-
         Driver.closeDriver();
     }
-
 }

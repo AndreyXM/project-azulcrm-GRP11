@@ -13,7 +13,8 @@ Feature: Poll Creation functionality
     And   the user clicks on main menu "Poll"
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
-    Then  the user clicks send button
+    And   the user clicks send button
+    Then  the user verify that poll is created by matching the "<MessageTitle>" and the time on the message title
 
     Examples:
 
@@ -49,7 +50,8 @@ Feature: Poll Creation functionality
     And   the user enters valid "<Employee>" in the recipient box
     And   the user creates a poll by adding "<MessageTitle>", "<Question>" and "<Answer1>" and "<Answer2>"
     And   the user selects Allow multiple choice checkbox
-    Then  the user clicks send button
+    And   the user clicks send button
+    Then  the user verify that poll is created by matching the "<MessageTitle>" and the time on the message title
 
     Examples:
 

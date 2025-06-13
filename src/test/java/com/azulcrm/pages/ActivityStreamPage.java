@@ -22,4 +22,17 @@ public class ActivityStreamPage extends BaseDashboardPage {
 
     @FindBy(xpath = "//span[contains(text(),'You have already added your post')]")
     public WebElement duplicateMessageError;
+
+    @FindBy(xpath = "//a[@title='Activity Stream']")
+    public WebElement activityStreamButton;
+
+    @FindBy(xpath = "//div[@id='feed-add-post-form-tab']/span")
+    public List<WebElement> listOfOptions;
+
+    @FindBy(id = "feed-add-post-form-link-text")
+    public WebElement moreButton;
+
+    @FindBy(xpath = "//span[@class='menu-popup-item-text']")
+    public List<WebElement> listOptions_MORE;
+
 }
